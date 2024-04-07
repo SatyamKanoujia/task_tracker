@@ -1,6 +1,7 @@
 // ignore_for_file: library_private_types_in_public_api
 
 import 'package:flutter/material.dart';
+import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 import 'package:task_tracker/models/task_model.dart';
 
 class NewTask extends StatefulWidget {
@@ -23,6 +24,26 @@ class _NewTaskState extends State<NewTask> {
   }
 
   void _submitTaskData() {
+    // Check if title or description is empty
+    if (_titleController.text.trim().isEmpty ||
+        _descriptionController.text.trim().isEmpty) {
+      // Show error message
+      showToast(
+        'Please fill in both title and description.',
+        context: context,
+        animation: StyledToastAnimation.slideFromTopFade,
+        reverseAnimation: StyledToastAnimation.fade,
+        position: StyledToastPosition.center,
+        duration: const Duration(seconds: 2),
+        animDuration: const Duration(milliseconds: 250),
+        curve: Curves.easeInOut,
+        backgroundColor: const Color.fromARGB(255, 238, 50, 50),
+        textStyle: const TextStyle(color: Colors.white),
+      );
+      return;
+    }
+
+    // Add task if both fields are filled
     widget.onAddTask(
       TaskModal(
         title: _titleController.text,

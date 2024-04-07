@@ -34,6 +34,7 @@ void main() {
             ),
       ),
       home: const Task(),
+      debugShowCheckedModeBanner: false,
     ),
   );
 }
